@@ -4,7 +4,7 @@ import outputData from '@/mocks/output.json';
 let cnt = 0;
 
 const makeSmall = (value: string) => {
-  return (Number(value) * (Math.random() * 0.15 + 13)).toString();
+  return (Number(value) * (Math.random() * 0.04 + 0.83)).toString();
 };
 
 const camera1Data = outputData
