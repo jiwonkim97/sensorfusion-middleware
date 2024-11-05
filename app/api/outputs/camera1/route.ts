@@ -11,21 +11,30 @@ const camera1Outputs = outputData.filter((d) => d.sensor_name === 'Camera1');
 const data = [...camera1Outputs, ...camera1Outputs, ...camera1Outputs, ...camera1Outputs];
 const maxCnt = Math.floor(data.length);
 
+// export const GET = async () => {
+//   console.log('cnt: ', cache.camera1Cnt, new Date());
+//   const endCnt = cache.camera1Cnt + DATA_COUNT;
+//   console.log('endCnt: ', endCnt);
+//   if (endCnt > maxCnt) {
+//     console.log('overflow!', endCnt, maxCnt);
+//     cache.camera1Cnt = 0;
+//   }
+//   const response = NextResponse.json(refreshTimestamp(data.slice(cache.camera1Cnt, endCnt)));
+//   cache.camera1Cnt = cache.camera1Cnt + 1;
+//   console.log('after cnt: ', cache.camera1Cnt);
+
+//   return response;
+// };
+const startTime = new Date('2024-11-05 18:00:00');
+
 export const GET = async () => {
-  console.log('cnt: ', cache.camera1Cnt, new Date());
-  const endCnt = cache.camera1Cnt + DATA_COUNT;
-  console.log('endCnt: ', endCnt);
-  if (endCnt > maxCnt) {
-    console.log('overflow!', endCnt, maxCnt);
-    cache.camera1Cnt = 0;
-  }
-  const response = NextResponse.json(refreshTimestamp(data.slice(cache.camera1Cnt, endCnt)));
-  cache.camera1Cnt = cache.camera1Cnt + 1;
-  console.log('after cnt: ', cache.camera1Cnt);
+  const now = new Date();
+  const millisec = now.getTime();
+  const start = (millisec - startTime.getTime()) % DATA_COUNT;
+  const end = start + DATA_COUNT;
 
-  return response;
+  return NextResponse.json(refreshTimestamp(data.slice(start, end)));
 };
-
 const refreshTimestamp = (data: typeof camera1Outputs) => {
   const now = new Date();
 
