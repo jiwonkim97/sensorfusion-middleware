@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import outputData from '@/mocks/output.json';
 
-const TIME_RANGE = 60 * 5;
+const TIME_RANGE = 1000 * 60 * 5;
+const TIME_INTERVAL = 1000 * 5;
+const DATA_COUNT = TIME_RANGE / TIME_INTERVAL;
 
 let cnt = 0;
 const camera1Outputs = outputData.filter((d) => d.sensor_name === 'Camera1');
@@ -20,7 +22,7 @@ const maxCnt = Math.floor(
 );
 
 export const GET = async (request: NextRequest, { params }: { params: Promise<{ sensor_name: string }> }) => {
-  const endCnt = cnt + TIME_RANGE;
+  const endCnt = cnt + DATA_COUNT;
   if (endCnt > maxCnt) {
     cnt = 0;
   }
@@ -33,14 +35,23 @@ export const GET = async (request: NextRequest, { params }: { params: Promise<{ 
 const getSensorData = (sensor_name: string, start: number, end: number) => {
   switch (sensor_name) {
     case 'Camera1':
-      return NextResponse.json(camera1Outputs.slice(start, end));
+      return NextResponse.json(refreshTimestamp(camera1Outputs.slice(start, end)));
     case 'Camera2':
-      return NextResponse.json(camera2Outputs.slice(start, end));
+      return NextResponse.json(refreshTimestamp(camera2Outputs.slice(start, end)));
     case 'Camera3':
-      return NextResponse.json(camera3Outputs.slice(start, end));
+      return NextResponse.json(refreshTimestamp(camera3Outputs.slice(start, end)));
     case 'Camera4':
-      return NextResponse.json(camera4Outputs.slice(start, end));
+      return NextResponse.json(refreshTimestamp(camera4Outputs.slice(start, end)));
     case 'LiDAR1':
-      return NextResponse.json(lidar1Outputs.slice(start, end));
+      return NextResponse.json(refreshTimestamp(lidar1Outputs.slice(start, end)));
   }
+};
+
+const refreshTimestamp = (data: typeof camera1Outputs) => {
+  const now = new Date();
+
+  return [...data].map((d, idx) => ({
+    ...d,
+    timestamp: new Date(now.getTime() - idx * 1000).toISOString(),
+  }));
 };
