@@ -32,6 +32,7 @@ export const GET = async () => {
   const millisec = now.getTime();
   const start = (millisec - startTime.getTime()) % DATA_COUNT;
   const end = start + DATA_COUNT;
+  console.log('start: ', start, 'end: ', end, 'data length: ', data.length);
 
   return NextResponse.json(refreshTimestamp(data.slice(start, end)));
 };
