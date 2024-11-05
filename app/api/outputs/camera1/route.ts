@@ -25,12 +25,11 @@ const data = [...camera1Outputs, ...camera1Outputs, ...camera1Outputs, ...camera
 
 //   return response;
 // };
-const startTime = new Date('2024-11-05 18:00:00');
+const startTime = new Date('2024-11-04 18:00:00');
 
 export const GET = async () => {
   const now = new Date();
-  const millisec = now.getTime();
-  const start = (millisec - startTime.getTime()) % DATA_COUNT;
+  const start = (now.getTime() - startTime.getTime()) % DATA_COUNT;
   const end = start + DATA_COUNT;
   console.log('start: ', start, 'end: ', end, 'data length: ', data.length);
 
