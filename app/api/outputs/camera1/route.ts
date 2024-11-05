@@ -16,7 +16,7 @@ export const GET = async () => {
     cnt = 0;
   }
   const response = NextResponse.json(refreshTimestamp(camera1Outputs.slice(cnt, endCnt)));
-  cnt += TIME_INTERVAL * HZ;
+  cnt += 1;
 
   return response;
 };
