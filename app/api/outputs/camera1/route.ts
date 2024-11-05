@@ -41,6 +41,6 @@ const refreshTimestamp = (data: typeof camera1Outputs) => {
 
   return [...data].map((d, idx) => ({
     ...d,
-    timestamp: new Date(now.getTime() - idx * 1000).toISOString(),
+    timestamp: new Date(now.getTime() - (data.length - idx) * 1000).toISOString(),
   }));
 };
