@@ -3,8 +3,7 @@ import outputData from '@/mocks/output.json';
 
 const TIME_RANGE = 1000 * 60 * 5;
 const TIME_INTERVAL = 1000 * 5;
-const HZ = 30;
-const DATA_COUNT = (TIME_RANGE * HZ) / TIME_INTERVAL;
+const DATA_COUNT = TIME_RANGE / TIME_INTERVAL;
 
 let cnt = 0;
 const camera1Outputs = outputData.filter((d) => d.sensor_name === 'Camera1');
@@ -28,7 +27,7 @@ export const GET = async (request: NextRequest, { params }: { params: Promise<{ 
     cnt = 0;
   }
   const response = getSensorData((await params).sensor_name, cnt, endCnt);
-  cnt = TIME_INTERVAL * HZ;
+  cnt += 1;
 
   return response;
 };
@@ -53,6 +52,6 @@ const refreshTimestamp = (data: typeof camera1Outputs) => {
 
   return [...data].map((d, idx) => ({
     ...d,
-    timestamp: new Date(now.getTime() - idx * 1000 + 1000 / HZ).toISOString(),
+    timestamp: new Date(now.getTime() - (data.length - idx) * 1000).toISOString(),
   }));
 };
