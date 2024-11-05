@@ -11,12 +11,15 @@ const camera1Outputs = outputData.filter((d) => d.sensor_name === 'Camera1');
 const maxCnt = Math.floor(camera1Outputs.length);
 
 export const GET = async () => {
+  console.log('cnt: ', cnt);
   const endCnt = cnt + DATA_COUNT;
+  console.log('endCnt: ', endCnt);
   if (endCnt > maxCnt) {
     cnt = 0;
   }
   const response = NextResponse.json(refreshTimestamp(camera1Outputs.slice(cnt, endCnt)));
   cnt += 1;
+  console.log('after cnt: ', cnt);
 
   return response;
 };
