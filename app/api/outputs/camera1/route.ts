@@ -5,11 +5,11 @@ const TIME_RANGE = 1000 * 60 * 5;
 const TIME_INTERVAL = 1000 * 1;
 const DATA_COUNT = TIME_RANGE / TIME_INTERVAL;
 
-const cache = { camera1Cnt: 1 };
+// const cache = { camera1Cnt: 1 };
 
 const camera1Outputs = outputData.filter((d) => d.sensor_name === 'Camera1');
 const data = [...camera1Outputs, ...camera1Outputs, ...camera1Outputs, ...camera1Outputs];
-const maxCnt = Math.floor(data.length);
+// const maxCnt = Math.floor(data.length);
 
 // export const GET = async () => {
 //   console.log('cnt: ', cache.camera1Cnt, new Date());
