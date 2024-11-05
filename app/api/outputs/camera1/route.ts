@@ -8,19 +8,7 @@ const DATA_COUNT = (TIME_RANGE * HZ) / TIME_INTERVAL;
 
 let cnt = 0;
 const camera1Outputs = outputData.filter((d) => d.sensor_name === 'Camera1');
-const camera2Outputs = outputData.filter((d) => d.sensor_name === 'Camera2');
-const camera3Outputs = outputData.filter((d) => d.sensor_name === 'Camera3');
-const camera4Outputs = outputData.filter((d) => d.sensor_name === 'Camera4');
-const lidar1Outputs = outputData.filter((d) => d.sensor_name === 'LiDAR1');
-const maxCnt = Math.floor(
-  Math.min(
-    camera1Outputs.length,
-    camera2Outputs.length,
-    camera3Outputs.length,
-    camera4Outputs.length,
-    lidar1Outputs.length
-  )
-);
+const maxCnt = Math.floor(camera1Outputs.length);
 
 export const GET = async () => {
   const endCnt = cnt + DATA_COUNT;
