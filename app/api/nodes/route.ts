@@ -25,7 +25,7 @@ export const GET = () => {
     "title": "LiDAR1",
     "subtitle": "2024-11-05T02:47:07.906869389Z",
     "mainstat": "Active",
-    "icon": "lidar",
+    "icon": "signal",
     "node_radius": 30,
     "highlighted": false,
     "color": "#00FF00"
