@@ -28,7 +28,7 @@ export const GET = async (request: NextRequest, { params }: { params: Promise<{ 
     cnt = 0;
   }
   const response = getSensorData((await params).sensor_name, cnt, endCnt);
-  cnt = endCnt;
+  cnt = TIME_INTERVAL * HZ;
 
   return response;
 };
