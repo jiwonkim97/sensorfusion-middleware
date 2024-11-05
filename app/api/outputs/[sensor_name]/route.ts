@@ -19,12 +19,12 @@ const maxCnt = Math.floor(
   )
 );
 
-export const GET = (request: NextRequest, { params }: { params: { sensor_name: string } }) => {
+export const GET = async (request: NextRequest, { params }: { params: Promise<{ sensor_name: string }> }) => {
   const endCnt = cnt + TIME_RANGE;
   if (endCnt > maxCnt) {
     cnt = 0;
   }
-  const response = getSensorData(params.sensor_name, cnt, cnt + TIME_RANGE);
+  const response = getSensorData((await params).sensor_name, cnt, endCnt);
   cnt = endCnt;
 
   return response;
