@@ -29,7 +29,7 @@ const startTime = new Date('2024-11-04 18:00:00');
 
 export const GET = async () => {
   const now = new Date();
-  const start = (now.getTime() - startTime.getTime()) % DATA_COUNT;
+  const start = Math.floor((now.getTime() - startTime.getTime()) / 5000) % DATA_COUNT;
   const end = start + DATA_COUNT;
   console.log('start: ', start, 'end: ', end, 'data length: ', data.length);
 
